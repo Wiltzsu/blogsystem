@@ -1,27 +1,13 @@
-<?php 
-// Database connection
-require "db.php";
+<?php
+include "header.php";
+?>
 
-ini_set('display_errors', 1);
-error_reporting(E_ALL);?>
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Blog Posts</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-</head>
 <body>
     <div class="container">
 
-        <?php include "navbar.php"?>
-
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
-                <h1 class="display-4">Fluid jumbotron</h1>
+                <h1 class="display-4">The blog</h1>
                 <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
             </div>
         </div>
@@ -29,6 +15,7 @@ error_reporting(E_ALL);?>
         <h1>Blog Posts</h1>
 
         <button type="button" class="btn btn-primary" onclick="location.href='create_blogpost.php'">Create Blog Post</button>
+
 
         <?php
         // Include get_blogposts for fetching and displaying posts

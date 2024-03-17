@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty(trim($_POST["username"]))) {
         $username_err = "Please enter a username.";
     } else {
-        $username = trim($_POST["password"]);
+        $username = trim($_POST["username"]);
     }
 
     // Validate email
@@ -50,6 +50,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Attempt to execute the prepared statement
             if ($stmt->execute()) {
+                // Start the session
+                session_start();
+
+                // Store data in session variables
+                $_SESSION["username"] = $username;
+                $_SESSION["email"] = $email;
+                $_SESSION["password"] = $password;
+
+                // Redirect the user to login page
                 header("location: login.php");
                 exit();
             } else {
