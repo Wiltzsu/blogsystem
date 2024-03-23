@@ -7,33 +7,30 @@ ini_set('display_errors', 1);
 
 // If the login button is submitted execute this code
 if (isset($_POST['submit'])) {
-    $username = $_POST['username']; // Store username in a variable
-    $password = $_POST['password']; // Store password in a variable
+    $form_username = $_POST['username']; // Store username from the form in a variable
+    $form_password = $_POST['password']; // Likewise the password
 
     // Check if username and password are provided
-    if (empty($username) || empty($password)) {
+    if (empty($form_username) || empty($form_password)) {
         echo '<div class="alert alert-danger">Please enter both username and password</div>';
     } else {
         // Prepare and execute a query to retrieve user information based on the provided username
-        $login = $pdo->prepare("SELECT * FROM user WHERE username = ?");
-        $login->execute([$username]);
+        $login = $pdo->prepare("SELECT * FROM user WHERE username = ? AND password = ?");
+        $login->execute([$form_username, $form_password]);
         // Fetch the result as an associative array
         $user = $login->fetch(PDO::FETCH_ASSOC);
 
         if ($user) {
-            // Verify the password
-            if (password_verify($password, $user['password'])) {
-                // Set session variables
-                $_SESSION['username'] = $user['username'];
-                $_SESSION['id'] = $user['id'];
-                // Redirect to the index.php page
-                header("Location: index.php");
-                exit;
-            } else {
-                echo '<div class="alert alert-danger">Incorrect password</div>';
-            }
+            // User found, set session variables
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['password'] = $user['password'];
+            $_SESSION['loggedin'] = true; // Indicate that the user is now logged in
+
+            // Redirect to index.php
+            header("Location: index.php");
+            exit;
         } else {
-            echo '<div class="alert alert-danger">Username not found</div>';
+            echo '<div class="alert alert-danger">Incorrect username or password</div>';
         }
     }
 }
@@ -62,6 +59,10 @@ if (isset($_POST['submit'])) {
         <div class="login-container">
             <div class="card p-4">
                 <h2 class="text-center mb-4">Login</h2>
+                <?php if (!empty($login_error)): ?>
+    <div class="alert alert-danger"><?php echo $login_error; ?></div>
+<?php endif; ?>
+
                 <form method="post" action="login.php">
                     <div class="form-group">
                         <label for="username">Username</label>

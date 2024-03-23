@@ -36,22 +36,24 @@ ini_set('display_errors', 1);
       <li class="nav-item">
         <a class="nav-link" href="#">Link</a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
 
 
-    <li class="nav-item">
-        <a class="nav-link" href="login.php">Login</a>
-    </li>
+      <li class="nav-item">
+                        <span class="nav-link">
+                            <?php
+                            // Start the session if not already started
+                            if (session_status() === PHP_SESSION_NONE) {
+                                session_start();
+                            }
+                            // Check if the session variable exists and display it
+                            if (isset($_SESSION['username'])) {
+                                echo "Welcome, " . htmlspecialchars($_SESSION['username']);
+                            } else {
+                                echo "Not logged in";
+                            }
+                            ?>
+                        </span>
+                    </li>
 
 
       
