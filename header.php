@@ -22,45 +22,38 @@ ini_set('display_errors', 1);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<?php
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-
-
-      <li class="nav-item">
-                        <span class="nav-link">
-                            <?php
-                            // Start the session if not already started
-                            if (session_status() === PHP_SESSION_NONE) {
-                                session_start();
-                            }
-                            // Check if the session variable exists and display it
-                            if (isset($_SESSION['username'])) {
-                                echo "Welcome, " . htmlspecialchars($_SESSION['username']);
-                            } else {
-                                echo "Not logged in";
-                            }
-                            ?>
-                        </span>
+    ?>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="index.php">My Website</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']): ?>
+                    <span class="navbar-text">
+                        Hello, <?php echo htmlspecialchars($_SESSION['username']); ?>
+                    </span>
+                <?php endif; ?>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="profile.php">Profile</a>
+                </li>
+                <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.php">Logout</a>
                     </li>
-
-
-      
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
+                <?php else: ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.php">Login</a>
+                    </li>
+                <?php endif; ?>
+            </ul>
+        </div>
+    </nav>
