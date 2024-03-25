@@ -17,15 +17,15 @@ if (isset($_POST['submit'])) {
         echo '<div class="alert alert-danger">Please enter both username and password</div>';
     } else {
         // Prepare and execute a query to retrieve user information based on the provided username
-        $login = $pdo->prepare("SELECT * FROM user WHERE username = ? AND password = ?");
+        $login = $pdo->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
         $login->execute([$form_username, $form_password]);
         // Fetch the result as an associative array
         $user = $login->fetch(PDO::FETCH_ASSOC);
 
         if ($user) {
             // User found, set session variables
+            $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['username'] = $user['username'];
-            $_SESSION['password'] = $user['password'];
             $_SESSION['loggedin'] = true; // Indicate that the user is now logged in
 
             // Redirect to index.php

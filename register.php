@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check input errors before inserting into database
     if (empty($username_err) && empty($email_err) && empty($password_err)) {
         // Prepare an insert statement
-        $sql = "INSERT INTO user (username, email, password) VALUES (:username, :email, :password)";
+        $sql = "INSERT INTO users (username, email, password) VALUES (:username, :email, :password)";
 
         if ($stmt = $pdo->prepare($sql)) {
             // Bind variables to the prepared statement as parameters

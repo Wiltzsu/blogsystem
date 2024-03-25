@@ -1,22 +1,35 @@
 <?php
+session_start();
 // Database connection
 require "db.php";
 
 // Check if the form has been submitted
 if (isset($_POST['save'])) {
-    // Retrieve form data using POST method, with fallback to empty string if not set
-    $title=trim($_POST['title']) ?? ''; // Trim removes whitespace from the beginning and the end of a string
-    $content=trim($_POST['content']) ?? '';
+    // Retrieve form data using POST method, only form submitted data comes from POST
+    $title=trim($_POST['title']); 
+    $content=trim($_POST['content']);
+
+    // Check if user is logged in and has a user id
+    if (!isset($_SESSION['user_id'])) {
+        // Redirect to login page
+        header('Location: login.php');
+        exit;
+    }
+    $user_id = $_SESSION['user_id']; // Get the user_id from the session
+    $username = $_SESSION['username']; // Get the username from the session
 
     try {
         // Check if both title and content are provided
         if ($title && $content) {
             // SQL statement to insert new post into the database
-            $sql = "INSERT INTO posts (title, content) VALUES (?, ?)";
+            $sql = "INSERT INTO posts (id, user_id, title, content) VALUES (?, ?, ?, ?)";
+
             // Prepare the SQL statement for execution to prevent SQL injection
             $stmt = $pdo->prepare($sql);
+
             // Execute the prepared statement with the title and content variables
-            $stmt->execute([$title, $content]);
+            $stmt->execute([$user_id, $user_id, $title, $content]);
+            
             // Display success message if the post is created succesfully
             echo "<div class='alert alert-success'>Post created successfully!</div>";
 
@@ -29,7 +42,7 @@ if (isset($_POST['save'])) {
         }
     } catch (Exception $e) {
         // Log the error (prevent exposing sensitive information)
-        error_log($e->getMessage());
+        echo $e;
         echo "<div class=\"alert alert-danger\">An error occurred. Please try again later.</div>";
     }
 }
