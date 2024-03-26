@@ -16,20 +16,19 @@ if (isset($_POST['save'])) {
         exit;
     }
     $user_id = $_SESSION['user_id']; // Get the user_id from the session
-    $username = $_SESSION['username']; // Get the username from the session
 
     try {
         // Check if both title and content are provided
         if ($title && $content) {
             // SQL statement to insert new post into the database
-            $sql = "INSERT INTO posts (id, user_id, title, content) VALUES (?, ?, ?, ?)";
+            $sql = "INSERT INTO posts (user_id, title, content) VALUES (?, ?, ?)";
 
             // Prepare the SQL statement for execution to prevent SQL injection
             $stmt = $pdo->prepare($sql);
 
             // Execute the prepared statement with the title and content variables
-            $stmt->execute([$user_id, $user_id, $title, $content]);
-            
+            $stmt->execute([$user_id, $title, $content]);
+
             // Display success message if the post is created succesfully
             echo "<div class='alert alert-success'>Post created successfully!</div>";
 

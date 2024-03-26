@@ -14,7 +14,14 @@ include "header.php";
 
         <h1>Blog Posts</h1>
 
-        <button type="button" class="btn btn-primary" onclick="location.href='create_blogpost.php'">Create Blog Post</button>
+        <?php
+        if(isset($_SESSION['user_id'])) {
+            // Display create blog post button only if user is logged in
+            ?>
+            <button type="button" class="btn btn-primary" onclick="location.href='create_blogpost.php'">Create Blog Post</button>
+            <?php
+        }
+        ?>
 
 
         <?php
@@ -40,8 +47,18 @@ include "header.php";
                             <h3><?php echo $post['title'];?></h3>
                             <!-- Display content -->
                             <p><?php echo $post['content'];?></p>
+                            <!-- Display username -->
+                            <p>Posted by: <?php echo $post['username'];?></p>
+
+                            <?php
+                            if(isset($_SESSION['user_id'])) {
+                                // Display buttons only if user is logged in
+                                ?>
                             <button type="button" class="btn btn-info" onclick="location.href='update_blogpost.php?id=<?php echo $post['id']; ?>'">Update Blog Post</button>
                             <button type="button" class="btn btn-secondary" onclick="location.href='delete_blogpost.php?id=<?php echo $post['id']; ?>'">Delete Blog Post</button>
+                            <?php    
+                            }
+                            ?>
                         </div>
                     </div>
                     <?php
