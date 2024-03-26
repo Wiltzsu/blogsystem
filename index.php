@@ -52,7 +52,7 @@ include "header.php";
 
                             <?php
                             // Check if the logged in user is the author of the post
-                            if(isset($_SESSION['user_id']) && $_SESSION['user_id'] == $post['user_id']) {
+                            if (isset($_SESSION['user_id']) && ($_SESSION['user_id'] == $post['user_id'] || $_SESSION['username'] == 'admin')) {
                                 // Display buttons only if user is logged in
                                 ?>
                             <button type="button" class="btn btn-info" onclick="location.href='update_blogpost.php?id=<?php echo $post['id']; ?>'">Update Blog Post</button>
@@ -68,7 +68,6 @@ include "header.php";
         }
         ?>
     </div>
-
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
