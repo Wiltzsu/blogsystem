@@ -30,6 +30,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $password_err = "Please enter your password.";
     } else {
         $password = trim($_POST["password"]);
+
+        // Hash the password
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     }
 
     // Check input errors before inserting into database
@@ -46,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Set parameters
             $param_username = $username;
             $param_email = $email;
-            $param_password = $password;
+            $param_password = $hashedPassword;
 
             // Attempt to execute the prepared statement
             if ($stmt->execute()) {
@@ -56,7 +59,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Store data in session variables
                 $_SESSION["username"] = $username;
                 $_SESSION["email"] = $email;
-                $_SESSION["password"] = $password;
 
                 // Redirect the user to login page
                 header("location: login.php");

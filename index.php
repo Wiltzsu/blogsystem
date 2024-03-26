@@ -51,7 +51,8 @@ include "header.php";
                             <p>Posted by: <?php echo $post['username'];?></p>
 
                             <?php
-                            if(isset($_SESSION['user_id'])) {
+                            // Check if the logged in user is the author of the post
+                            if(isset($_SESSION['user_id']) && $_SESSION['user_id'] == $post['user_id']) {
                                 // Display buttons only if user is logged in
                                 ?>
                             <button type="button" class="btn btn-info" onclick="location.href='update_blogpost.php?id=<?php echo $post['id']; ?>'">Update Blog Post</button>
