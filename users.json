@@ -1,0 +1,24 @@
+{
+    "users": [
+        {
+            "user_id": "2",
+            "username": "pulla",
+            "email": "pulla@pulla.com"
+        },
+        {
+            "user_id": "3",
+            "username": "palli",
+            "email": "palli@palli.com"
+        },
+        {
+            "user_id": "1",
+            "username": "julli",
+            "email": "julli@kulli.com"
+        },
+        {
+            "user_id": "4",
+            "username": "admin",
+            "email": "admin@admin.com"
+        }
+    ]
+}

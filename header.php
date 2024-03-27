@@ -38,13 +38,18 @@ ini_set('display_errors', 1);
                         Hello, <?php echo htmlspecialchars($_SESSION['username']); ?>
                     </span>
                 <?php endif; ?>
+                
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
                 </li>
+
+                <?php if (isset($_SESSION['loggedin']) && $_SESSION['username'] == 'admin'): ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="profile.php">Profile</a>
+                    <a class="nav-link" href="admin_panel.php">Admin Panel</a>
                 </li>
+                <?php endif; ?>
+
                 <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']): ?>
                     <li class="nav-item">
                         <a class="nav-link" href="logout.php">Logout</a>
