@@ -43,6 +43,10 @@ include "header.php";
             echo "<p>Username: " . htmlspecialchars($user['username']) . "</p>"; // Display the username
             echo "<p>Email: " . htmlspecialchars($user['email']) . "</p>"; // Display the email
             echo "</div>";
+            ?>
+            <button type="button" class="btn btn-info" onclick="location.href='update_blogpost.php?id=<?php echo $post['id']; ?>'">Update Blog Post</button>
+            <button type="button" class="btn btn-secondary" onclick="location.href='delete_user.php?user_id=<?php echo $user['user_id']; ?>'">Delete user from database</button>
+            <?php
           }
         } else {
           echo "<p>No user data found in $filePath</p>";
