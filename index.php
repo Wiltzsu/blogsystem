@@ -1,5 +1,5 @@
 <?php
-include "header.php";
+require "header.php";
 ?>
 
 <body>
@@ -26,7 +26,7 @@ include "header.php";
 
         <?php
         // Include get_blogposts for fetching and displaying posts
-        include 'get_blogposts.php';
+        require 'get_blogposts.php';
         // Check if file exists and is readable
         if(file_exists("data.json") && is_readable("data.json")) {
             // Get the contents and assign them to a variable
@@ -57,7 +57,7 @@ include "header.php";
                                 ?>
                             <button type="button" class="btn btn-info" onclick="location.href='update_blogpost.php?id=<?php echo $post['id']; ?>'">Update Blog Post</button>
                             <button type="button" class="btn btn-secondary" onclick="location.href='delete_blogpost.php?id=<?php echo $post['id']; ?>'">Delete Blog Post</button>
-                            <?php    
+                                <?php    
                             }
                             ?>
                         </div>

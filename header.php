@@ -32,6 +32,7 @@ ini_set('display_errors', 1);
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
+
                 <li class="nav-item">
                 <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']): ?>
                     <span class="navbar-text">
@@ -40,23 +41,27 @@ ini_set('display_errors', 1);
                 <?php endif; ?>
                 
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="profile.php">Profile <span class="sr-only">(current)</span></a>
                 </li>
 
                 <?php if (isset($_SESSION['loggedin']) && $_SESSION['username'] == 'admin'): ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="admin_panel.php">Admin Panel</a>
+                    <a class="nav-link" href="admin_panel.php">Admin Panel <span class="sr-only">(current)</span></a>
                 </li>
                 <?php endif; ?>
 
                 <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']): ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="logout.php">Logout</a>
+                        <a class="nav-link" href="logout.php">Logout <span class="sr-only">(current)</span></a>
                     </li>
                 <?php else: ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="login.php">Login</a>
+                        <a class="nav-link" href="login.php">Login <span class="sr-only">(current)</span></a>
                     </li>
                 <?php endif; ?>
             </ul>
