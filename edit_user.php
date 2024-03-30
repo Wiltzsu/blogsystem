@@ -46,7 +46,6 @@ try {
 
 ?>
 <body>
-        
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
@@ -72,8 +71,6 @@ try {
                             }
                             ?>>
                 </div>
-
-   
 
                 <button name="send" type="submit" class="btn btn-warning mb2">Update</button>
 

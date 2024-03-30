@@ -1,6 +1,12 @@
 <?php
 require "header.php";
 
+// If the user is not logged in, redirect to login.php
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
 // Get user_id from the session and save it to a variable
 $userid = $_SESSION['user_id'];
 

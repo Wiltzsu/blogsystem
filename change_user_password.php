@@ -1,14 +1,21 @@
 <?php
 require "db.php";
-include "header.php";
+require "header.php";
+
+// If the user is not logged in, redirect to login.php
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get the submitted form values
     $current_password = $_POST['current_password'];
     $new_password = $_POST['new_password'];
     $confirm_password = $_POST['confirm_password'];
 
-    // Get used id from the session
+    // Get usedrid from the session
     $user_id = $_SESSION['user_id'];
 
     // Fetch the current password from the database
@@ -17,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $statement->execute();
     $user = $statement->fetch();
 
-    // Verify the current password
+    // Verify the current password, compare the password from the form with the password from the database
     if (password_verify($current_password, $user['password'])) {
         // Check if new password and confirm password match
         if ($new_password === $confirm_password) {
