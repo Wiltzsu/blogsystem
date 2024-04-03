@@ -5,4 +5,4 @@ composer.lock
 tests/CalculatorTest.php
 Calculator.php
 
-/vendor/
+vendor/
