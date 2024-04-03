@@ -24,7 +24,7 @@ require "header.php";
       <div class="col-sm-12">
       <h2>List of users</h2>
       <?php
-        require "get_users.php";
+        require "get_users_instance.php";
 
         $filePath = "users.json";
 

@@ -1,4 +1,5 @@
 <?php
+namespace Test\Test;
 require "db.php";
 
 class get_users {
@@ -11,10 +12,10 @@ class get_users {
     public function usersToJson() {
         // SQL query to get the users from database
         $query = "SELECT user_id, username, email FROM users ORDER BY username DESC";
-        $data = $pdo->query($query);
+        $data = $this->pdo->query($query);
 
         // Fetch all data at once, each row will be an associative array with column name as keys
-        $users = $data->fetchAll(PDO::FETCH_ASSOC);
+        $users = $data->fetchAll(\PDO::FETCH_ASSOC);  // Use backslash before global class to search for it in global namespace
 
         // Prepare array for JSON encoding
         $jsonData = ['users' => $users];
