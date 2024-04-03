@@ -1,18 +1,29 @@
 <?php
 require "db.php";
 
-// SQL query to get the users from database
-$query = "SELECT user_id, username, email FROM users ORDER BY username DESC";
-$data = $pdo->query($query);
+class get_users {
+    private $pdo;
 
-// Fetch all data at once, each row will be an associative array with column name as keys
-$users = $data->fetchAll(PDO::FETCH_ASSOC);
+    public function __construct($pdo) {
+        $this->pdo = $pdo;
+    }
 
-// Prepare array for JSON encoding
-$jsonData = ['users' => $users];
+    public function usersToJson() {
+        // SQL query to get the users from database
+        $query = "SELECT user_id, username, email FROM users ORDER BY username DESC";
+        $data = $pdo->query($query);
 
-// Encode the data from PHP to JSON, PRETTY_PRINT makes the JSON string more readable
-$json = json_encode($jsonData, JSON_PRETTY_PRINT);
+        // Fetch all data at once, each row will be an associative array with column name as keys
+        $users = $data->fetchAll(PDO::FETCH_ASSOC);
 
-// Write to JSON file, file_put_contents will create the file if it doesn't exist
-file_put_contents("users.json", $json);
+        // Prepare array for JSON encoding
+        $jsonData = ['users' => $users];
+
+        // Encode the data from PHP to JSON, PRETTY_PRINT makes the JSON string more readable
+        $json = json_encode($jsonData, JSON_PRETTY_PRINT);
+
+        // Write to JSON file, file_put_contents will create the file if it doesn't exist
+        file_put_contents("users.json", $json);
+    }
+}
+

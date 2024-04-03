@@ -1,0 +1,1 @@
+{"version":1,"defects":{"CalculatorTest::testAdd":8,"UserExporterTest::testExportUsersToJsonFile":8,"UserExporterTest::testExportUsersToJson":8,"get_usersTest::testExportUsersToJson":8},"times":{"CalculatorTest::testAdd":0.003}}

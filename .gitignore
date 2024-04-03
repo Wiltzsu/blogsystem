@@ -1,1 +1,8 @@
 db.php
+phpunit.xml
+composer.json
+composer.lock
+tests/CalculatorTest.php
+Calculator.php
+
+/vendor/
