@@ -5,6 +5,7 @@ require "db.php";
 // Check if user_id is provided in the query string
 if(isset($_GET['user_id'])) {
     $user_id = $_GET['user_id'];
+    
     // Prepare SQL query to delete the user with the specified ID
     $query = "DELETE FROM users WHERE user_id=:user_id";
     $delete = $pdo->prepare($query);
