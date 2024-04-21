@@ -20,10 +20,10 @@ ini_set('display_errors', 1);
     <title>Blog Posts</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://cdn.tiny.cloud/1/ocpxbj8oq8ujrkdaxy8x84l388iz9uji8ut7xut77wz4xlef/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> <!-- WYSIWYG TinyMCE editor -->
 </head>
 
 <?php
-
     ?>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="index.php">My Website</a>

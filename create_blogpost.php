@@ -2,6 +2,7 @@
 session_start();
 // Database connection
 require "db.php";
+require "header.php";
 
 // Check if the form has been submitted
 if (isset($_POST['save'])) {
@@ -71,11 +72,21 @@ if (isset($_POST['save'])) {
             
             <div class="form-group">
                 <label for="content">Content</label>
-                <textarea class="form-control" id="content" name="content" rows="3" placeholder="Post content" required></textarea>
-            </div>
+            <!-- TinyMCE WYSIWYG -->
+            <textarea id="textarea" name="content"></textarea>
+
+            <script>
+                tinymce.init({
+                    selector: '#textarea'  // Adjust the selector to match your textarea's ID
+                });
+            </script>            </div>
+
+
 
             <button type="submit" class="btn btn-primary" name="save">Submit</button>
         </form>
+
+
     </div>
 
     <!-- Include Bootstrap JS and dependencies -->

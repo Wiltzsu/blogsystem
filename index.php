@@ -23,7 +23,6 @@ require "header.php";
         }
         ?>
 
-
         <?php
         // Include get_blogposts for fetching and displaying posts
         require 'get_blogposts.php';
