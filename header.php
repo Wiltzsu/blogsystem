@@ -2,7 +2,7 @@
 // Start the session
 session_start();
 // Database connection
-require "db.php";
+require "src/Config/Database.php";
 
 // Check if username is set in the session and *not empty*
 if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
