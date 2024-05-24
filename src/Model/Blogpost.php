@@ -7,11 +7,11 @@ use Exception;
 
 class Blogpost
 {
-    private $db;
+    private $_db;
 
-    public function __construct()
+    public function __construct(\PDO $db)
     {
-        $this->db = Database::connect();
+        $this->_db = $db;
     }
 
     public function createBlogPost()
@@ -38,7 +38,7 @@ class Blogpost
                     $sql = "INSERT INTO posts (user_id, title, content) VALUES (?, ?, ?)";
         
                     // Prepare the SQL statement for execution to prevent SQL injection
-                    $stmt = $this->db->prepare($sql);
+                    $stmt = $this->_db->prepare($sql);
         
                     // Execute the prepared statement with the title and content variables
                     $stmt->execute([$user_id, $title, $content]);
@@ -68,7 +68,7 @@ class Blogpost
             $id = $_GET['id'];
             // Prepare SQL query to delete the post with the specified ID
             $query = "DELETE FROM posts WHERE id=:id";
-            $delete = $this->db->prepare($query);
+            $delete = $this->_db->prepare($query);
 
             // Bind the parameter and execute the query
             $delete->bindValue(':id', $id, PDO::PARAM_INT);
@@ -86,10 +86,9 @@ class Blogpost
     public function getBlogPosts()
     {
         # SQL query to get blog posts from database
-        $query = "SELECT *
-        FROM posts 
-        ORDER BY created_at DESC";
-        $data = $this->db->query($query);
+        $statement = $this->_db->prepare("SELECT * FROM posts");
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function updateBlogPost()
@@ -102,7 +101,7 @@ class Blogpost
             $query = "SELECT * FROM posts WHERE id = '$id'";
         
             // Execute the SQL query
-            $data = $this->db->query($query);
+            $data = $this->_db->query($query);
         
             // Fetch the result as an object
             $rows = $data->fetch(PDO::FETCH_OBJ);
@@ -123,7 +122,7 @@ class Blogpost
                     $update = "UPDATE posts SET title = :new_title, content = :new_content WHERE id = :id";
                     
                     // Prepare the SQL update statement
-                    $updateStatement = $this->db->prepare($update);
+                    $updateStatement = $this->_db->prepare($update);
         
                     // Bind the new title, content and post id parameters to the statement
                     $updateStatement->bindParam(':new_title', $new_title);
@@ -152,7 +151,7 @@ class Blogpost
 
         // Prepare the SQL query
         $query = "INSERT INTO comments (post_id, author, content) VALUES (?, ?, ?)";
-        $statement = $this->db->prepare($query);
+        $statement = $this->_db->prepare($query);
 
         // Execute the query
         $statement->execute([$post_id, $author, $content]);
@@ -164,7 +163,7 @@ class Blogpost
 
     public function getPostComments($postId)
     {
-        $stmt = $this->db->prepare("SELECT * FROM comments WHERE post_id = ? ORDER BY created_at DESC");
+        $stmt = $this->_db->prepare("SELECT * FROM comments WHERE post_id = ? ORDER BY created_at DESC");
         $stmt->execute([$postId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
