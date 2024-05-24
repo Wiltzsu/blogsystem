@@ -13,7 +13,7 @@ class CreatePost
         $this->db = Database::connect();
     }
 
-    public function createPost()
+    public function createBlogPost()
     {
    
     // Check if the form has been submitted
