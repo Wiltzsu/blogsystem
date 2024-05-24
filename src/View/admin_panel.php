@@ -1,10 +1,7 @@
 <?php 
-// Database connection
-require "db.php";
-
-// Ensure error reporting is enabled
-error_reporting(E_ALL);
+ini_set('log_errors', 1);
 ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
 // Check if username is set in the session and not empty
 if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
@@ -15,7 +12,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['username'] == 'admin') {
     $username = $_SESSION['username'];
 }
 
-require "header.php";
 ?>
 
 <body>

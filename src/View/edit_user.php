@@ -1,49 +1,9 @@
 <?php
+ini_set('log_errors', 1);
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 require "header.php";
-
-try {
-    // Get user id from session to be used in search query
-    $user_id = $_SESSION['user_id'];
-    // Query the database
-    $query = "SELECT username, email FROM users WHERE user_id = '$user_id'";
-    // Execute the query and return the result set as a PDOstatement object
-    $data = $pdo->query($query);
-    // Fetch the next row as an object
-    $rows = $data->fetch(PDO::FETCH_OBJ);
-
-    // If there are any rows found, set the current values to variables
-    if ($rows) {
-        $current_username = $rows->username;
-        $current_email = $rows->email;
-
-        // If 'send' is clicked in the form, update values in the database
-        if (isset($_POST['send'])) {
-            //$new_user_id = $_POST['user_id'];
-            $new_username = $_POST['username'];
-            //$new_password = $_POST['password'];
-            $new_email = $_POST['email'];
-
-            $update = "UPDATE users
-                        SET username = :new_username, 
-                        email = :new_email
-                        WHERE user_id = :current_user_id";
-
-            // Prepare the update statement
-            $updateStatement = $pdo->prepare($update);
-
-            // Bind parameters to values
-            $updateStatement->bindParam(':new_username', $new_username);
-            $updateStatement->bindParam(':new_email', $new_email);
-            $updateStatement->bindParam(':current_user_id', $user_id);
-
-            // Execute the update
-            $updateStatement->execute();
-        }
-    }
-} catch (Exception $e) {
-    echo $e->getMessage();
-}
-
 ?>
 <body>
     <div class="container">

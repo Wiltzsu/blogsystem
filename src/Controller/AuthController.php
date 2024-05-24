@@ -14,6 +14,7 @@ class AuthController extends BaseController
         parent::__construct();
         $this->userModel = new UserModel();
     }
+    
 
     public function login()
     {

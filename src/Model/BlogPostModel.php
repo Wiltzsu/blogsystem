@@ -103,7 +103,7 @@ class BlogPostModel
             $query = "SELECT * FROM posts WHERE id = '$id'";
         
             // Execute the SQL query
-            $data = $pdo->query($query);
+            $data = $this->db->query($query);
         
             // Fetch the result as an object
             $rows = $data->fetch(PDO::FETCH_OBJ);
@@ -124,7 +124,7 @@ class BlogPostModel
                     $update = "UPDATE posts SET title = :new_title, content = :new_content WHERE id = :id";
                     
                     // Prepare the SQL update statement
-                    $updateStatement = $pdo->prepare($update);
+                    $updateStatement = $this->db->prepare($update);
         
                     // Bind the new title, content and post id parameters to the statement
                     $updateStatement->bindParam(':new_title', $new_title);
@@ -142,5 +142,24 @@ class BlogPostModel
         } catch (Exception $e) {
             echo $e->getMessage();
         }
+    }
+
+    public function submitComment()
+    {
+        // Get the form data
+        $post_id = $_POST['post_id'];
+        $author = $_POST['author'];
+        $content = $_POST['content'];
+
+        // Prepare the SQL query
+        $query = "INSERT INTO comments (post_id, author, content) VALUES (?, ?, ?)";
+        $statement = $this->db->prepare($query);
+
+        // Execute the query
+        $statement->execute([$post_id, $author, $content]);
+
+        // Redirect back to the blog post
+        header("Location: index.php");
+        exit;
     }
 }
