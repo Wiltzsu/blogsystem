@@ -1,8 +1,13 @@
 <?php
-require '../Config/Database.php';
+namespace App\Controller;
+
+use App\Config\Database;
+use App\Controller\BaseController;
+use PDO;
+
 class AuthController extends BaseController
 {
-    public function login($username, $password)
+    public function login()
     {
         // If the login button is submitted execute this code
         if (isset($_POST['submit'])) {
@@ -13,7 +18,7 @@ class AuthController extends BaseController
             if (empty($form_username) || empty($form_password)) {
                 echo '<div class="alert alert-danger">Please enter both username and password</div>';
             } else {
-                // Retrieve the users data from the database
+                $db = Database::connect();
                 $query = $db->prepare("SELECT * FROM users WHERE username = ?");
                 $query->execute([$form_username]);
                 $user = $query->fetch(PDO::FETCH_ASSOC);
@@ -26,8 +31,8 @@ class AuthController extends BaseController
                     $_SESSION['username'] = $user['username'];
                     $_SESSION['loggedin'] = true; // Indicate that the user is now logged in
 
-                    // Redirect to index.php
-                    header("Location: index.php");
+                    // Redirect
+                    $this->redirect("index.php");
                     exit;
                 } else {
                     echo '<div class="alert alert-danger">Incorrect username or password</div>';
