@@ -82,4 +82,65 @@ class BlogPostModel
             echo '<div style="background-color: red; color: white; padding: 10px;">No post ID provided</div>';
         }
     }
+
+    public function getBlogPosts()
+    {
+        # SQL query to get blog posts from database
+        $query = "SELECT id, posts.user_id, created_at, title, content, username 
+        FROM posts 
+        INNER JOIN users ON posts.user_id = users.user_id
+        ORDER BY created_at DESC";
+        $data = $this->db->query($query);
+    }
+
+    public function updateBlogPost()
+    {
+        try {
+            // Retrieve the value of the 'id' parameter from the URL query string
+            $id = $_GET['id'];
+        
+            // Construct the SQL query to select the post based on the provided id
+            $query = "SELECT * FROM posts WHERE id = '$id'";
+        
+            // Execute the SQL query
+            $data = $pdo->query($query);
+        
+            // Fetch the result as an object
+            $rows = $data->fetch(PDO::FETCH_OBJ);
+        
+            // Check if the post with the given id exists
+            if ($rows) {
+                // Extract the current title and content from the fetched object
+                $current_title = $rows->title;
+                $current_content = $rows->content;
+        
+                // Check if the 'update' form has been submitted
+                if (isset($_POST['update'])) {
+                    // Retrieve the new title and content from the form
+                    $new_title = $_POST['title'];
+                    $new_content = $_POST['content'];
+        
+                    // Construct the SQL update to update values in the database
+                    $update = "UPDATE posts SET title = :new_title, content = :new_content WHERE id = :id";
+                    
+                    // Prepare the SQL update statement
+                    $updateStatement = $pdo->prepare($update);
+        
+                    // Bind the new title, content and post id parameters to the statement
+                    $updateStatement->bindParam(':new_title', $new_title);
+                    $updateStatement->bindParam(':new_content', $new_content);
+                    $updateStatement->bindParam(':id', $id); // Add parameter for id
+        
+                    // Execute the preprared statement which updates the post in the database
+                    $updateStatement->execute();
+        
+                    // Redirect back to index.php after deletion
+                    header("Location: index.php");
+                    exit(); // Ensure script execution stops after redirection
+                }
+            }
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
 }

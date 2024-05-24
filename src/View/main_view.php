@@ -1,4 +1,8 @@
 <?php
+namespace App\View;
+
+use App\Model\GetComments;
+
 require "header.php";
 ?>
 
@@ -88,7 +92,7 @@ require "header.php";
                     include_once 'get_comments.php';
 
                     // Display comments for this post
-                    $comments = getComments($pdo, $post['id']);
+                    $comments = getComments($db, $post['id']);
                     echo "<div class='comments'>";
                     foreach ($comments as $comment) {
                         echo "<div class='comment'>";
