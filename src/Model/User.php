@@ -4,7 +4,7 @@ namespace App\Model;
 use App\Config\Database;
 use PDO;
 
-class UserModel {
+class User {
     private $db;
 
     public function __construct()

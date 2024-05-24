@@ -7,3 +7,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Controller\MainController;
 use App\Config\Database;
+
+$db = Database::connect();
+
+$mainController = new MainController($db);
+$mainController->index();

@@ -1,13 +1,6 @@
 <?php 
-// Start the session
-session_start();
-// Database connection
-require "src/Config/Database.php";
 
-// Check if username is set in the session and *not empty*
-if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
-  $username = $_SESSION['username'];
-}
+
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);

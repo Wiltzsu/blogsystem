@@ -4,13 +4,21 @@ namespace App\Model;
 use App\Config\Database;
 use PDO;
 
-class AuthModel
+class Authentication
 {
     private $db;
 
     public function __construct()
     {
         $this->db = Database::connect();
+    }
+
+    public function userSession()
+    {
+        // Check if username is set in the session and *not empty*
+        if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
+            $username = $_SESSION['username'];
+        }
     }
 
     public function logoutUser()

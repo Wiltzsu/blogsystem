@@ -5,7 +5,7 @@ use App\Config\Database;
 use PDO;
 use Exception;
 
-class BlogPostModel
+class Blogpost
 {
     private $db;
 
@@ -86,9 +86,8 @@ class BlogPostModel
     public function getBlogPosts()
     {
         # SQL query to get blog posts from database
-        $query = "SELECT id, posts.user_id, created_at, title, content, username 
+        $query = "SELECT *
         FROM posts 
-        INNER JOIN users ON posts.user_id = users.user_id
         ORDER BY created_at DESC";
         $data = $this->db->query($query);
     }
@@ -161,5 +160,12 @@ class BlogPostModel
         // Redirect back to the blog post
         header("Location: index.php");
         exit;
+    }
+
+    public function getPostComments($postId)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM comments WHERE post_id = ? ORDER BY created_at DESC");
+        $stmt->execute([$postId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
