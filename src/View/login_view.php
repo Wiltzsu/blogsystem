@@ -27,10 +27,10 @@ error_reporting(E_ALL);
             <div class="card p-4">
                 <h2 class="text-center mb-4">Login</h2>
                 <?php if (!empty($login_error)): ?>
-    <div class="alert alert-danger"><?php echo $login_error; ?></div>
-<?php endif; ?>
+                    <div class="alert alert-danger"><?php echo $login_error; ?></div>
+                <?php endif; ?>
 
-                <form method="post" action="login.php">
+                <form method="post" action="/login">
                     <div class="form-group">
                         <label for="username">Username</label>
                         <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">

@@ -3,7 +3,7 @@ namespace App\Controller;
 
 use App\Config\Database;
 use App\Controller\BaseController;
-use App\Model\UserModel;
+use App\Model\Authentication;
 
 class AuthController extends BaseController
 {
@@ -12,7 +12,7 @@ class AuthController extends BaseController
     public function __construct()
     {
         parent::__construct();
-        $this->userModel = new UserModel();
+        $this->userModel = new Authentication();
     }
     
 
@@ -38,10 +38,8 @@ class AuthController extends BaseController
                     $_SESSION['loggedin'] = true; // Indicate that the user is now logged in
 
                     // Redirect
-                    $this->redirect("index.php");
+                    require __DIR__ . '/../src/View/main_view.php';
                     exit;
-                } else {
-                    echo '<div class="alert alert-danger">Incorrect username or password</div>';
                 }
             }
         }

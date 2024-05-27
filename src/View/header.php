@@ -12,6 +12,8 @@ ini_set('display_errors', 1);
     <meta charset="UTF-8">
     <title>Blog Posts</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://cdn.tiny.cloud/1/ocpxbj8oq8ujrkdaxy8x84l388iz9uji8ut7xut77wz4xlef/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> <!-- WYSIWYG TinyMCE editor -->
 </head>
@@ -54,7 +56,7 @@ ini_set('display_errors', 1);
                     </li>
                 <?php else: ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="login.php">Login <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/blog/src/View/login_view.php">Login <span class="sr-only">(current)</span></a>
                     </li>
                 <?php endif; ?>
             </ul>
